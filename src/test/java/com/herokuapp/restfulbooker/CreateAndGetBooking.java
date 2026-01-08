@@ -49,4 +49,27 @@ public class CreateAndGetBooking extends BaseTest {
         softAssert.assertAll();  // if we didn't add this, test result can be false positive.
         // Otherwise, test will be passed.
     }
+
+    @Test
+    public void createNewBookingAndCheckHeaders() {
+        Response response = createBooking();
+        response.print();
+
+        //Verify response is 200
+        Assert.assertEquals(response.getStatusCode(), 200, "Status code should be 200, but it's not");
+
+        //Verify Content-Type header
+        String contentTypeHeader = response.getHeader("Content-Type");
+        Assert.assertEquals(contentTypeHeader, "application/json; charset=utf-8", "Content-Type header is not as expected");
+
+        //Verify Server header
+        String serverHeader = response.getHeader("Server");
+        Assert.assertEquals(serverHeader, "Heroku", "Server header is not as expected");
+
+        //Verify Content-Length header
+        String contentLengthHeader = response.getHeader("Content-Length");
+        int contentLength = Integer.parseInt(contentLengthHeader);
+        Assert.assertTrue(contentLength > 15, "Content-Length should be greater than 15");
+
+    }
 }
