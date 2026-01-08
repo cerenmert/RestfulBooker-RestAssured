@@ -26,7 +26,7 @@ public class DeleteBookingTests extends BaseTest {
 
         //Verify that deleted booking is not exist anymore
         Response responseGet = RestAssured.given(spec).get("/booking/" + bookingID);
-        Assert.assertEquals(responseGet.getBody().asString(), " ", "Body should be Not Found but it is not");
+        Assert.assertEquals(responseGet.getBody().asString(), "Not Found", "Body should be Not Found but it is not");
 
     }
 }

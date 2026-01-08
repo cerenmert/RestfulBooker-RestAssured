@@ -11,12 +11,11 @@ import org.testng.asserts.SoftAssert;
 public class UpdateBookingTests extends BaseTest{
     @Test
     public void updateBookingTest(){
-        //Create new booking
-        Response responseCreate = createBooking(); //this method is in BaseTest
-        responseCreate.print();
+        Response response = createBooking();
+        response.print();
 
         //Get bookingId of new booking
-        int bookingID= responseCreate.jsonPath().getInt("bookingid");
+        int bookingID= response.jsonPath().getInt("bookingid");
 
         //Create Json body
         JSONObject body = new JSONObject();
@@ -27,8 +26,8 @@ public class UpdateBookingTests extends BaseTest{
         body.put("additionalneeds", "Baby crib");
 
         JSONObject bookingdates = new JSONObject();
-        bookingdates.put("checkin", "2021-05-31");
-        bookingdates.put("checkout", "2021-06-02");
+        bookingdates.put("checkin", "2026-01-08");
+        bookingdates.put("checkout", "2026-01-11");
         body.put("bookingdates", bookingdates); //we add "bookingdates jsonObject" to body
 
         //Update booking by using auth. token
@@ -37,6 +36,7 @@ public class UpdateBookingTests extends BaseTest{
                 .contentType(ContentType.JSON)
                 .body(body.toString())
                 .put("/booking/"  +bookingID);
+
         responseUpdate.print();
 
         //Assert that response's status is 200
@@ -53,11 +53,12 @@ public class UpdateBookingTests extends BaseTest{
         boolean depositpaid= responseUpdate.jsonPath().getBoolean("depositpaid");
         softAssert.assertTrue(depositpaid, "depositpaid should be true, but it is false");
         String actualCheckIn= responseUpdate.jsonPath().getString("bookingdates.checkin");
-        softAssert.assertEquals(actualCheckIn,"2021-05-31","CheckIn in response is not as expected");
+        softAssert.assertEquals(actualCheckIn,"2026-01-08","CheckIn in response is not as expected");
         String actualCheckOut= responseUpdate.jsonPath().getString("bookingdates.checkout");
-        softAssert.assertEquals(actualCheckOut,"2021-06-02", "CheckOut in response is not as expected");
+        softAssert.assertEquals(actualCheckOut,"2026-01-11", "CheckOut in response is not as expected");
         String actualAdditionalNeeds= responseUpdate.jsonPath().getString("additionalneeds");
         softAssert.assertEquals(actualAdditionalNeeds,"Baby crib", "Additional need is different");
+
         softAssert.assertAll();
     }
 }

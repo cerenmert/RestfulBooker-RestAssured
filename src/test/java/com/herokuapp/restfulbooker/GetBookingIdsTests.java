@@ -23,8 +23,8 @@ public class GetBookingIdsTests extends BaseTest{
     public void getBookingIdsWithFilterByNameTest(){
 
         //add query parameter to spec
-        spec.queryParam("firstname","Jim");
-        spec.queryParam("lastname","Smith");
+        spec.queryParam("firstname","Ceren");
+        spec.queryParam("lastname","Cakir");
 
         //Get response - filter by name and lastname
         Response response= RestAssured.given(spec).get("/booking");
@@ -38,8 +38,8 @@ public class GetBookingIdsTests extends BaseTest{
     public void getBookingIdsWithFilterByDateTest(){
 
         //add query parameter to spec
-        spec.queryParam("checkin","2020-04-30");
-        spec.queryParam("checkout","2021-03-23");
+        spec.queryParam("checkin","2026-01-07");
+        spec.queryParam("checkout","2026-01-10");
 
         //Get response - filter by name and lastname
         Response response= RestAssured.given(spec).get("/booking");

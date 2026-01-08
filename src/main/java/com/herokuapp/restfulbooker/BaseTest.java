@@ -10,26 +10,28 @@ import org.testng.annotations.BeforeMethod;
 
 public class BaseTest {
 
-    protected  RequestSpecification spec;
+    protected RequestSpecification spec;
 
     @BeforeMethod
-    public void setUp(){
-        spec= new RequestSpecBuilder().setBaseUri("https://restful-booker.herokuapp.com").build();
+    public void setUp() {
+        spec = new RequestSpecBuilder().
+                setBaseUri("https://restful-booker.herokuapp.com").
+                build();
     }
 
     protected Response createBooking() {
         //Create JSON body
         JSONObject body = new JSONObject();
         body.put("firstname", "Ceren");
-        body.put("lastname", "Mert");
+        body.put("lastname", "Cakir");
         body.put("totalprice", "125");
         body.put("depositpaid", false);
         body.put("additionalneeds", "Baby crib");
 
         JSONObject bookingdates = new JSONObject();
-        bookingdates.put("checkin", "2021-05-31");
-        bookingdates.put("checkout", "2021-06-02");
-        body.put("bookingdates", bookingdates); //we add "bookingdates jsonObject" to body
+        bookingdates.put("checkin", "2026-01-07");
+        bookingdates.put("checkout", "2026-01-10");
+        body.put("bookingdates", bookingdates);
 
         //Get Response
         Response response = RestAssured.given(spec).contentType(ContentType.JSON).body(body.toString()).post("/booking");
