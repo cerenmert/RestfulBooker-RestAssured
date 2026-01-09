@@ -9,7 +9,7 @@ public class Booking {
     private BookingDates bookingdates;
     private String additionalneeds;
 
-    // Constructor
+    // Parameterized constructor
     public Booking(String firstname, String lastname, int totalprice, boolean depositpaid, BookingDates bookingdates, String additionalneeds) {
         this.firstname = firstname;
         this.lastname = lastname;
@@ -17,6 +17,11 @@ public class Booking {
         this.depositpaid = depositpaid;
         this.bookingdates = bookingdates;
         this.additionalneeds = additionalneeds;
+    }
+
+    // Default constructor
+    public Booking() {
+
     }
 
     @Override
