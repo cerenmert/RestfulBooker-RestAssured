@@ -1,15 +1,24 @@
 package com.herokuapp.restfulbooker;
 
 
+import io.restassured.RestAssured;
+import io.restassured.http.ContentType;
 import io.restassured.response.Response;
+import org.json.JSONObject;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
-public class CreateBookingTests extends BaseTest{
+public class CreateBookingWithPOJOTest extends BaseTest{
     @Test
     public void createBookingTest(){
-        Response response = createBooking();
+        // Please first, put Jackson (Databind) in the classpath to serialize objects
+        // We are setting up request body by using POJO classes instead of JSONObject
+        BookingDates bookingDates= new BookingDates("2026-01-07","2026-01-10");
+        Booking booking= new Booking("Ceren","Cakir",125,false, bookingDates,"Baby crib");
+
+        //Get Response
+        Response response = RestAssured.given(spec).contentType(ContentType.JSON).body(booking).post("/booking");
         response.print();
 
         //Verify response is 200
